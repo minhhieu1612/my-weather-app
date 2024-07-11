@@ -1,0 +1,28 @@
+@use 'sass:map';
+
+// container and spacing
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 680px,
+  lg: 860px,
+  xl: 1080px,
+  xxl: 1320px,
+);
+
+$xs: map.get($grid-breakpoints, 'xs');
+$sm: map.get($grid-breakpoints, 'sm');
+$md: map.get($grid-breakpoints, 'md');
+$lg: map.get($grid-breakpoints, 'lg');
+$xl: map.get($grid-breakpoints, 'xl');
+
+// colors
+$primary-color: black;

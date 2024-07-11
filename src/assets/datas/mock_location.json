@@ -1,0 +1,31 @@
+{
+  "name": "Ho Chi Minh City",
+  "local_names": {
+    "es": "Ciudad Ho Chi Minh",
+    "cs": "Ho Či Minovo Město",
+    "fr": "Hô Chi Minh-Ville",
+    "el": "Χο Τσι Μιν",
+    "ar": "مدينة هو تشي منه",
+    "de": "Ho-Chi-Minh-Stadt",
+    "ms": "Kota Ho Chi Minh",
+    "km": "ទីក្រុង​ហូ​ជី​មិញ",
+    "ja": "ホーチミン市",
+    "ko": "호찌민시",
+    "fa": "هوشی‌مین",
+    "nl": "Ho Chi Minhstad",
+    "ru": "Хошимин",
+    "he": "הו צ'י מין סיטי",
+    "en": "Ho Chi Minh City",
+    "id": "Kota Ho Chi Minh",
+    "it": "Città di Ho Chi Minh",
+    "zh": "胡志明市",
+    "lv": "Hočimina",
+    "et": "Hồ Chí Minh",
+    "vi": "Thành phố Hồ Chí Minh",
+    "eo": "Ho-Chi-Minh-urbo",
+    "oc": "Hô Chi Minh Vila"
+  },
+  "lat": 10.7758439,
+  "lon": 106.7017555,
+  "country": "VN"
+}

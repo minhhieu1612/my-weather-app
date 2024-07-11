@@ -1,0 +1,37 @@
+.current-weather {
+  max-width: 500px;
+  border-radius: 6px;
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
+
+  .date {
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0;
+  }
+
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    &-info {
+      padding: 10px;
+    }
+  }
+
+  .body {
+    display: flex;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+    .temperature {
+      font-size: 42px;
+      font-weight: bold;
+      font-family: sans-serif;
+      align-self: center;
+    }
+  }
+}

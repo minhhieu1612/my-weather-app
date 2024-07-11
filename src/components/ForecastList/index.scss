@@ -1,0 +1,95 @@
+@use 'sass:map';
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.forecast-day {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.forecast-list {
+  margin-top: 10px;
+
+  &-item {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+
+    .time {
+      font-weight: bold;
+    }
+
+    @include media-screen-down($sm) {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      font-size: 11px;
+      align-items: center;
+
+      img {
+        height: 30px;
+      }
+
+      .temperature {
+        color: #555;
+      }
+
+      .humidity {
+        display: none;
+      }
+
+      .description {
+        font-weight: bold;
+
+        &:nth-child(3) {
+          display: none;
+        }
+
+        &:nth-child(5) {
+          display: block;
+        }
+      }
+    }
+
+    @include media-screen-up($sm) {
+      text-align: center;
+      display: block;
+
+      img {
+        height: 60px;
+        margin: 15px 0;
+      }
+
+      .time {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      }
+
+      .temperature {
+        margin-bottom: 20px;
+        color: #555;
+      }
+
+      .humidity {
+        display: block;
+        padding: 10px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.3);
+      }
+
+      .description {
+        font-weight: normal;
+        font-style: italic;
+        color: #555;
+        margin-bottom: 10px;
+
+        &:nth-child(3) {
+          display: block;
+        }
+
+        &:nth-child(5) {
+          display: none;
+        }
+      }
+    }
+  }
+}
