@@ -118,8 +118,8 @@ const PopupSearchCity = ({
     };
 
   useEffect(() => {
-    inputRef?.current?.focus();
-  }, []);
+    isVisible && inputRef?.current?.focus();
+  }, [isVisible]);
 
   return (
     <div

@@ -20,16 +20,8 @@ export default {
         use: 'ts-loader',
       },
       {
-        test: /\.(js|jsx)$/,
-        use: 'babel-loader',
-      },
-      {
         test: /\.s[ac]ss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.(png|gif|jpg|jpeg|svg)$/,
-        use: [{ loader: 'file-loader' }],
       },
     ],
   },

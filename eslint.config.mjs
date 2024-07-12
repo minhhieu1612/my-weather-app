@@ -1,12 +1,14 @@
 import react from 'eslint-plugin-react';
-import { fixupPluginRules } from '@eslint/compat';
+import { fixupPluginRules, includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
+import { ROOT_DIRECTORY } from './config.js';
+import path from 'path';
+
+const gitignorePath = path.resolve(ROOT_DIRECTORY, '.gitignore');
 
 export default [
+  includeIgnoreFile(gitignorePath),
   js.configs.recommended,
-  {
-    ignores: ['**/webpack.config.js', '**/node_modules/'],
-  },
   {
     plugins: {
       react: fixupPluginRules(react),

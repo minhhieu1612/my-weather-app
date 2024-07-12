@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import mock5DaysForecast from '../../assets/datas/mock_5_days_forecast.json';
 import './index.scss';
 import { useLoading } from '../../hooks/useLoading';
 import {
   FiveDaysForecastResponseType,
-  getCurrentWeather,
   getFiveDaysForecast,
 } from '../../services';
 import { useSelector } from 'react-redux';
