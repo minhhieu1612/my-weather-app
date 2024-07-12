@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import queryLocation from './queryLocation';
+import searchHistory from './searchHistory';
 
 const store = configureStore({
   reducer: {
-    queryLocation
+    queryLocation,
+    searchHistory
   },
 });
 

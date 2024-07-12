@@ -108,6 +108,7 @@ const CurrentWeather = () => {
             <div className="header-info">
               <div>
                 <h2 className="title">
+                  {/* TODO: should find another way to get these properties rather than use casting */}
                   {(dataCurrentWeather as DataCurrentWeatherType).name},{' '}
                   {(dataCurrentWeather as DataCurrentWeatherType).sys.country}
                 </h2>
@@ -161,8 +162,8 @@ const CurrentWeather = () => {
                         {
                           (dataCurrentWeather as DataCurrentWeatherType).wind
                             .speed
-                        }{' '}
-                        m/s{' '}
+                        }
+                        m/s
                       </td>
                     </tr>
                     <tr className="items">

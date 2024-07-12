@@ -27,6 +27,9 @@ export default {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss', '.css'],
+    alias: {
+      src: path.resolve(ROOT_DIRECTORY, 'src'),
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
