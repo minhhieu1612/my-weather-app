@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
-import { useLoading } from '../../hooks/useLoading';
-import {
-  FiveDaysForecastResponseType,
-  getFiveDaysForecast,
-} from '../../services';
+import { useLoading } from 'src/hooks/useLoading';
+
 import { useSelector } from 'react-redux';
-import { selectQueryLocation } from '../../store/queryLocation';
+import { selectQueryLocation } from 'src/store/queryLocation';
+import { FiveDaysForecastResponseType } from 'src/services/WeatherService.types';
+import { weatherService } from 'src/services';
 
 const formatGroupByDay = (data: any[]) => {
   return Object.entries(
@@ -48,7 +47,7 @@ const ForecastList = () => {
     (async () => {
       startLoading();
 
-      const response = await getFiveDaysForecast({
+      const response = await weatherService.getFiveDaysForecast({
         lattitude: lat,
         longtitude: lon,
       });
@@ -68,12 +67,12 @@ const ForecastList = () => {
         ? formatGroupByDay(
             (dataFiveDaysForecast as FiveDaysForecastResponseType).list
           ).map(([day, lisItem]) => (
-            <>
+            <div key={day}>
               <h4 className="forecast-day">{day}</h4>
               <hr />
               <div className="row forecast-list">
                 {(lisItem as any[]).map((item) => (
-                  <div className="col">
+                  <div key={item.dt_txt} className="col">
                     <div className="forecast-list-item">
                       <div className="time">
                         {new Date(item.dt_txt).toLocaleTimeString('en-US', {
@@ -101,7 +100,7 @@ const ForecastList = () => {
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           ))
         : ''}
     </div>

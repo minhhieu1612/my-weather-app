@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DEFAULT_LATTITUDE, DEFAULT_LONGTITUDE } from '../utils/config';
 import { RootStateType } from '.';
 import { LocationType } from 'src/types';
 
@@ -12,12 +11,20 @@ const slice = createSlice({
       localStorage.getItem(LS_SEARCH_HISTORY_KEY) as string
     ) as LocationType[]) || [],
   reducers: {
-    setSearchHistory: (state, action: PayloadAction<LocationType[]>) => {
+    unshift: (state, action: PayloadAction<LocationType>) => {
+      state.unshift(action.payload)
       localStorage.setItem(
         LS_SEARCH_HISTORY_KEY,
-        JSON.stringify(action.payload)
+        JSON.stringify(state)
       );
-      state = action.payload;
+    },
+
+    removeIndex: (state, action: PayloadAction<number>) => {
+      state.splice(action.payload, 1)
+      localStorage.setItem(
+        LS_SEARCH_HISTORY_KEY,
+        JSON.stringify(state)
+      );
     },
   },
 });
@@ -25,6 +32,6 @@ const slice = createSlice({
 export const selectSearchHistory = (state: RootStateType) =>
   state.searchHistory;
 
-export const { setSearchHistory } = slice.actions;
+export const { unshift: pushSearchHistory, removeIndex: deleteSearchHistory } = slice.actions;
 
 export default slice.reducer;

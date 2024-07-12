@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import { getLocation } from 'src/services';
+import React, { forwardRef, useState } from 'react';
+import { weatherService } from 'src/services';
 import { LocationType } from 'src/types';
+import { getUniqueId } from 'src/utils/generateUniqueId';
 
 type SearchFormPropsType = {
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
-  inputRef: React.RefObject<HTMLInputElement>;
   setLocations: (value: React.SetStateAction<LocationType[]>) => void;
-  handleSearch: (item?: LocationType) => void
+  handleSearch: (item?: LocationType) => void;
 };
 
-export default function SearchForm({
-  searchText,
-  setSearchText,
-  inputRef,
-  setLocations,
-  handleSearch
-}: SearchFormPropsType) {
+export default forwardRef(function SearchForm(
+  {
+    searchText,
+    setSearchText,
+    setLocations,
+    handleSearch,
+  }: SearchFormPropsType,
+  inputRef: React.RefObject<HTMLInputElement>
+) {
   const [hasError, setHasError] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,11 +29,12 @@ export default function SearchForm({
   const hanldeSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchText.length) {
-      const response = await getLocation({ query: searchText, limit: 5 });
+      const response = await weatherService.getLocation({ query: searchText, limit: 5 });
 
       if (response.success) {
         setLocations(
           response.data?.map(({ name, lat, lon, country }) => ({
+            id: getUniqueId(),
             name,
             lat,
             lon,
@@ -65,4 +68,4 @@ export default function SearchForm({
       )}
     </div>
   );
-}
+});

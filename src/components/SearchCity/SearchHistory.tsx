@@ -3,7 +3,11 @@ import IconTrash from './IconTrash';
 import IconSearch from './IconSearch';
 import { LocationType } from 'src/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSearchHistory, setSearchHistory } from 'src/store/searchHistory';
+import {
+  deleteSearchHistory,
+  selectSearchHistory,
+} from 'src/store/searchHistory';
+import { getUniqueId } from 'src/utils/generateUniqueId';
 
 type SearchHistoryPropsType = {
   handleSelect: (item: LocationType) => void;
@@ -18,11 +22,7 @@ export default function SearchHistory({
   const handleDelete =
     (indexItem: number) =>
     (_e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-      dispatch(
-        setSearchHistory(
-          searchHistory.filter((_x, index) => indexItem !== index)
-        )
-      );
+      dispatch(deleteSearchHistory(indexItem));
     };
 
   return searchHistory.length ? (
@@ -30,10 +30,13 @@ export default function SearchHistory({
       <h3>Search history</h3>
       <ul className="select-city search-history">
         {searchHistory.map((item, index) => (
-          <li key={`${item.lat}_${item.lon}_${item.name}`}>
+          <li key={`${item.id}_${item.name}`}>
             {item.name}, {item.country}
             <div className="action">
-              <span className="select" onClick={(e) =>handleSelect(item)}>
+              <span
+                className="select"
+                onClick={(e) => handleSelect({ ...item, id: getUniqueId() })}
+              >
                 <IconSearch width={16} height={16} />
               </span>
               <span className="delete" onClick={handleDelete(index)}>

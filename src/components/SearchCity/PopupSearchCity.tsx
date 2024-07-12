@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setqueryLocationParams } from 'src/store/queryLocation';
@@ -10,9 +10,10 @@ import {
   DEFAULT_NAME,
 } from 'src/utils/config';
 import { LocationType } from 'src/types';
-import { selectSearchHistory, setSearchHistory } from 'src/store/searchHistory';
+import { pushSearchHistory, selectSearchHistory } from 'src/store/searchHistory';
 import SearchForm from './SearchForm';
 import LocationList from './LocationList';
+import { getUniqueId } from 'src/utils/generateUniqueId';
 
 type PopupSearchCityPropsType = {
   searchText: string;
@@ -36,6 +37,7 @@ const PopupSearchCity = ({
     // search the default city if item is not provided
     if (item === undefined) {
       handleSearchCity({
+        id: getUniqueId(),
         lat: DEFAULT_LATTITUDE.toString(),
         lon: DEFAULT_LONGTITUDE.toString(),
         country: DEFAULT_COUNTRY,
@@ -48,16 +50,20 @@ const PopupSearchCity = ({
       }
       closePopup();
       setLocations([]);
-      dispatch(setSearchHistory([item].concat(searchHistory)));
+      dispatch(pushSearchHistory(item));
     }
   };
+
+  useEffect(() => {
+    inputRef?.current?.focus();
+  }, [isVisible]);
 
   return (
     <div className={`popup-wrap ${isVisible ? 'show' : ''}`}>
       <div className="container">
         <div className="popup-body">
           <SearchForm
-            inputRef={inputRef}
+            ref={inputRef}
             searchText={searchText}
             setSearchText={setSearchText}
             setLocations={setLocations}

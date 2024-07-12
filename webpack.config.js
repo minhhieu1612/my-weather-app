@@ -9,7 +9,7 @@ export default {
   mode: IS_PRODUCTION
     ? EnvironmentEnum.PRODUCTION
     : EnvironmentEnum.DEVELOPMENT,
-  devtool: IS_PRODUCTION ? 'none' : 'source-map',
+  devtool: IS_PRODUCTION ? undefined : 'eval-source-map',
   output: {
     path: path.resolve(ROOT_DIRECTORY, 'dist'),
   },
@@ -17,7 +17,7 @@ export default {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        use: 'ts-loader',
+        use: ['babel-loader', 'ts-loader'],
       },
       {
         test: /\.s[ac]ss$/,

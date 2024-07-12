@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { CurrentWeatherResponseType, getCurrentWeather } from '../../services';
 import { useSelector } from 'react-redux';
-import { selectQueryLocation } from '../../store/queryLocation';
+import { selectQueryLocation } from 'src/store/queryLocation';
 import './index.scss';
-import { useLoading } from '../../hooks/useLoading';
+import { useLoading } from 'src/hooks/useLoading';
+import { CurrentWeatherResponseType } from 'src/services/WeatherService.types';
+import { weatherService } from 'src/services';
 
 const formatVisibility = (distant: number) => {
   if (distant > 100) {
@@ -75,7 +76,7 @@ const CurrentWeather = () => {
     (async () => {
       startLoading();
 
-      const response = await getCurrentWeather({
+      const response = await weatherService.getCurrentWeather({
         lattitude: lat,
         longtitude: lon,
       });
