@@ -5,66 +5,9 @@ import './index.scss';
 import { useLoading } from 'src/hooks/useLoading';
 import { CurrentWeatherResponseType } from 'src/services/WeatherService.types';
 import { weatherService } from 'src/services';
-
-const formatVisibility = (distant: number) => {
-  if (distant > 100) {
-    return (distant / 1000).toFixed(1) + ' km';
-  }
-
-  return distant + ' m';
-};
-
-type DataCurrentWeatherType = {
-  weather: [
-    {
-      description: string;
-      icon: string;
-    }
-  ];
-  main: {
-    temp: number;
-    pressure: number;
-    humidity: number;
-  };
-  visibility: number;
-  wind: {
-    speed: number;
-    deg: number;
-  };
-  dt: number;
-  sys: {
-    country: string;
-  };
-  name: string;
-};
-
-const formatWeatherData = (
-  data: CurrentWeatherResponseType
-): DataCurrentWeatherType => {
-  return {
-    weather: [
-      {
-        description: data.weather[0].description,
-        icon: data.weather[0].icon,
-      },
-    ],
-    main: {
-      temp: data.main.temp,
-      pressure: data.main.pressure,
-      humidity: data.main.humidity,
-    },
-    visibility: data.visibility,
-    wind: {
-      speed: data.wind.speed,
-      deg: data.wind.deg,
-    },
-    dt: data.dt,
-    sys: {
-      country: data.sys.country,
-    },
-    name: data.name,
-  };
-};
+import { formatCurrentWeatherData, formatDistance } from 'src/utils/common';
+import { DataCurrentWeatherType } from 'src/types';
+import { getFormattedLocaleDate } from 'src/utils/formatDateTime';
 
 const CurrentWeather = () => {
   const { lat, lon } = useSelector(selectQueryLocation);
@@ -85,7 +28,7 @@ const CurrentWeather = () => {
 
       if (response.success) {
         setDataCurrentWeather(
-          formatWeatherData(response.data as CurrentWeatherResponseType)
+          formatCurrentWeatherData(response.data as CurrentWeatherResponseType)
         );
       }
     })();
@@ -97,13 +40,9 @@ const CurrentWeather = () => {
       {dataCurrentWeather !== null ? (
         <>
           <h4 className="date">
-            {new Date(
+            {getFormattedLocaleDate(
               (dataCurrentWeather as DataCurrentWeatherType).dt * 1000
-            ).toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            })}
+            )}
           </h4>
           <div className="header">
             <div className="header-info">
@@ -149,7 +88,7 @@ const CurrentWeather = () => {
                       <td className="item">Wind</td>
                       <td className="item wind-speed">
                         <img
-                          src="./assets/images/arrow-min.png"
+                          src="./assets/images/arrow.png"
                           alt="wind degree"
                           width={16}
                           height={16}
@@ -180,7 +119,7 @@ const CurrentWeather = () => {
                     <tr className="items">
                       <td className="item">Visibility</td>
                       <td className="item humidity">
-                        {formatVisibility(
+                        {formatDistance(
                           (dataCurrentWeather as DataCurrentWeatherType)
                             .visibility
                         )}

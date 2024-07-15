@@ -7,7 +7,7 @@ import {
   deleteSearchHistory,
   selectSearchHistory,
 } from 'src/store/searchHistory';
-import { getUniqueId } from 'src/utils/generateUniqueId';
+import { getUniqueId } from 'src/utils/common';
 
 type SearchHistoryPropsType = {
   handleSelect: (item: LocationType) => void;

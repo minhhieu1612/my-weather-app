@@ -1,8 +1,16 @@
 import path from 'path';
 import HtmlPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import { EnvironmentEnum, IS_PRODUCTION, ROOT_DIRECTORY } from './config.js';
 import CopyPlugin from 'copy-webpack-plugin';
+import { fileURLToPath } from 'url';
+import process from 'process';
+
+const ROOT_DIRECTORY = path.dirname(fileURLToPath(import.meta.url));
+const EnvironmentEnum = {
+  PRODUCTION: 'production',
+  DEVELOPMENT: 'development',
+};
+const IS_PRODUCTION = process.env.NODE_ENV === EnvironmentEnum.PRODUCTION
 
 export default {
   entry: './index.tsx',

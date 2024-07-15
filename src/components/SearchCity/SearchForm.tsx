@@ -1,7 +1,7 @@
 import React, { forwardRef, useState } from 'react';
 import { weatherService } from 'src/services';
 import { LocationType } from 'src/types';
-import { getUniqueId } from 'src/utils/generateUniqueId';
+import { getUniqueId } from 'src/utils/common';
 
 type SearchFormPropsType = {
   searchText: string;

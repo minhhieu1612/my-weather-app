@@ -6,12 +6,12 @@ export type BaseResponseType<T> = {
   error?: string;
 };
 
-const BASE_API_CONFIG: BaseRequestType = {
+const DEFAULT_REQUEST_CONFIG: BaseRequestType = {
   headers: {
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     'Accept': 'application/json, text/html',
     'User-Agent': navigator.userAgent,
-    'Authorization': 'none',
+    // 'Authorization': 'none',
   },
   method: 'GET',
   cache: 'default',
@@ -21,12 +21,10 @@ const BASE_API_CONFIG: BaseRequestType = {
   // mode: 'websocket',
   priority: 'auto', // default // TODO: try out this later
   redirect: 'follow', // default
-  referrer: 'about:client', // default
-  referrerPolicy: 'origin-when-cross-origin',
+  // referrer: 'about:client', // default
+  // referrerPolicy: 'no-referrer',
   baseUrl: 'backend.com', // an example
 };
-
-const DEFAULT_BASE_URL = 'backend.com';
 
 type QueryParamsType = {
   [key: string]: string;
@@ -36,7 +34,7 @@ class Repository {
   private _config: BaseRequestType;
 
   constructor(config?: BaseRequestType) {
-    this._config = { ...BASE_API_CONFIG, ...config };
+    this._config = { ...DEFAULT_REQUEST_CONFIG, ...config };
   }
 
   private async _execute<T>(
@@ -48,13 +46,13 @@ class Repository {
       query !== undefined
         ? Object.entries(query).reduce(
             (acc, [key, value], idx) =>
-              `${acc}${idx === 0 ? '?' : ''}${key}=${value}`,
+              `${acc}${idx === 0 ? '?' : ''}${key}=${value}&`,
             ''
           )
         : '';
 
     const request = new Request(
-      `${this._config.baseUrl || DEFAULT_BASE_URL}/${endpoint}${params}`,
+      `${this._config.baseUrl}/${endpoint}${params}`,
       {
         ...this._config,
         ...options,
@@ -62,8 +60,8 @@ class Repository {
     );
 
     try {
-      const rawData = await fetch(request);
-      const data = await rawData.json();
+      const response : Response = await fetch(request);
+      const data = await response.json();
 
       return {
         success: true,
@@ -90,7 +88,7 @@ class Repository {
   }
 
   async delete<T>(endpoint: string, query?: QueryParamsType) {
-    return await this._execute<T>(endpoint, undefined, { method: 'DELETE' });
+    return await this._execute<T>(endpoint, query, { method: 'DELETE' });
   }
 }
 

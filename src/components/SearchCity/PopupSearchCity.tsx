@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { createRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setqueryLocationParams } from 'src/store/queryLocation';
 import SearchHistory from './SearchHistory';
 import {
@@ -10,10 +10,10 @@ import {
   DEFAULT_NAME,
 } from 'src/utils/config';
 import { LocationType } from 'src/types';
-import { pushSearchHistory, selectSearchHistory } from 'src/store/searchHistory';
+import { pushSearchHistory } from 'src/store/searchHistory';
 import SearchForm from './SearchForm';
 import LocationList from './LocationList';
-import { getUniqueId } from 'src/utils/generateUniqueId';
+import { getUniqueId } from 'src/utils/common';
 
 type PopupSearchCityPropsType = {
   searchText: string;
@@ -30,7 +30,6 @@ const PopupSearchCity = ({
 }: PopupSearchCityPropsType) => {
   const inputRef = createRef<HTMLInputElement>();
   const [locations, setLocations] = useState<LocationType[]>([]);
-  const searchHistory = useSelector(selectSearchHistory);
   const dispatch = useDispatch();
 
   const handleSearchCity = (item?: LocationType) => {

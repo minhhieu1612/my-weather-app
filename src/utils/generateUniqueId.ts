@@ -1,1 +1,0 @@
-export const getUniqueId = () => new Date().getTime()

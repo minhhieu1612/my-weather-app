@@ -1,41 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useLoading } from 'src/hooks/useLoading';
-
 import { useSelector } from 'react-redux';
 import { selectQueryLocation } from 'src/store/queryLocation';
 import { FiveDaysForecastResponseType } from 'src/services/WeatherService.types';
 import { weatherService } from 'src/services';
-
-const formatGroupByDay = (data: any[]) => {
-  return Object.entries(
-    data.reduce((res, item) => {
-      let day = new Date(item.dt_txt).toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-      });
-
-      const currentDay = new Date().toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-      });
-
-      if (day === currentDay) {
-        day = 'Today';
-      }
-
-      if (res[day]?.length) {
-        res[day].push(item);
-      } else {
-        res[day] = [item];
-      }
-
-      return res;
-    }, {})
-  );
-};
+import { groupDataForecastByDay } from 'src/utils/common';
+import { getFormattedLocaleTime } from 'src/utils/formatDateTime';
 
 const ForecastList = () => {
   const { startLoading, endLoading, Loader } = useLoading();
@@ -64,7 +35,7 @@ const ForecastList = () => {
     <div>
       {Loader}
       {dataFiveDaysForecast !== null
-        ? formatGroupByDay(
+        ? groupDataForecastByDay(
             (dataFiveDaysForecast as FiveDaysForecastResponseType).list
           ).map(([day, lisItem]) => (
             <div key={day}>
@@ -75,10 +46,7 @@ const ForecastList = () => {
                   <div key={item.dt_txt} className="col">
                     <div className="forecast-list-item">
                       <div className="time">
-                        {new Date(item.dt_txt).toLocaleTimeString('en-US', {
-                          hour: '2-digit',
-                          minute: 'numeric',
-                        })}
+                        {getFormattedLocaleTime(item.dt_txt)}
                       </div>
                       <img
                         src={`https://openweathermap.org/img/w/${item.weather[0]?.icon}.png`}
