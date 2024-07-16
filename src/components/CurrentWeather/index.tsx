@@ -11,8 +11,9 @@ import { getFormattedLocaleDate } from 'src/utils/formatDateTime';
 
 const CurrentWeather = () => {
   const { lat, lon } = useSelector(selectQueryLocation);
-  const [dataCurrentWeather, setDataCurrentWeather] =
-    useState<DataCurrentWeatherType | null>(null);
+  const [dataCurrentWeather, setDataCurrentWeather] = useState<
+    DataCurrentWeatherType | undefined
+  >();
   const { startLoading, endLoading, Loader } = useLoading();
 
   useEffect(() => {
@@ -37,33 +38,24 @@ const CurrentWeather = () => {
   return (
     <div className="current-weather">
       {Loader}
-      {dataCurrentWeather !== null ? (
+      {dataCurrentWeather !== undefined ? (
         <>
           <h4 className="date">
-            {getFormattedLocaleDate(
-              (dataCurrentWeather as DataCurrentWeatherType).dt * 1000
-            )}
+            {getFormattedLocaleDate(dataCurrentWeather.dt * 1000)}
           </h4>
           <div className="header">
             <div className="header-info">
               <div>
                 <h2 className="title">
-                  {/* TODO: should find another way to get these properties rather than use casting */}
-                  {(dataCurrentWeather as DataCurrentWeatherType).name},{' '}
-                  {(dataCurrentWeather as DataCurrentWeatherType).sys.country}
+                  {dataCurrentWeather.name}, {dataCurrentWeather.sys.country}
                 </h2>
                 <p className="description">
-                  {
-                    (dataCurrentWeather as DataCurrentWeatherType).weather[0]
-                      .description
-                  }
+                  {dataCurrentWeather.weather[0].description}
                 </p>
               </div>
             </div>
             <img
-              src={`https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${
-                (dataCurrentWeather as DataCurrentWeatherType).weather[0].icon
-              }.png`}
+              src={`https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${dataCurrentWeather.weather[0].icon}.png`}
               width={128}
               height={128}
               alt="Weather in Ho Chi Minh City, VN"
@@ -72,7 +64,7 @@ const CurrentWeather = () => {
           </div>
           <div className="body">
             <div className="temperature">
-              {(dataCurrentWeather as DataCurrentWeatherType).main.temp}
+              {dataCurrentWeather.main.temp}
               <span>°C</span>
             </div>
             <div className="weather">
@@ -94,35 +86,24 @@ const CurrentWeather = () => {
                           height={16}
                           style={{
                             transform: `rotate(${
-                              (dataCurrentWeather as DataCurrentWeatherType)
-                                .wind.deg - 180
+                              dataCurrentWeather.wind.deg - 180
                             }deg)`,
                           }}
                         />
-                        {
-                          (dataCurrentWeather as DataCurrentWeatherType).wind
-                            .speed
-                        }
+                        {dataCurrentWeather.wind.speed}
                         m/s
                       </td>
                     </tr>
                     <tr className="items">
                       <td className="item">Humidity</td>
                       <td className="item humidity">
-                        {
-                          (dataCurrentWeather as DataCurrentWeatherType).main
-                            .humidity
-                        }
-                        %
+                        {dataCurrentWeather.main.humidity}%
                       </td>
                     </tr>
                     <tr className="items">
                       <td className="item">Visibility</td>
                       <td className="item humidity">
-                        {formatDistance(
-                          (dataCurrentWeather as DataCurrentWeatherType)
-                            .visibility
-                        )}
+                        {formatDistance(dataCurrentWeather.visibility)}
                       </td>
                     </tr>
                   </tbody>
