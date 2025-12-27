@@ -1,5 +1,6 @@
 import React from 'react';
 import './app.scss';
+// import './preload/index.scss'
 import CurrentWeather from './components/CurrentWeather';
 import ForecastList from './components/ForecastList';
 import SearchCity from './components/SearchCity';

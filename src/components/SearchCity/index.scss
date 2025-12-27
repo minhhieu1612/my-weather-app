@@ -1,18 +1,6 @@
 @import '../../styles/mixins';
 @import '../../styles/variables';
 
-.search-city {
-  padding: 20px 0;
-
-  .form-search {
-    input {
-      width: 200px;
-      padding: 5px 10px;
-      margin-right: 10px;
-    }
-  }
-}
-
 // TODO: should move this style to common use file
 // TODO: should use the variable instead of reuse the color
 .btn {

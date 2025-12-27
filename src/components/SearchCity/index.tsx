@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { lazy, useState } from 'react';
 import './index.scss';
 import { createPortal } from 'react-dom';
-import PopupSearchCity from './PopupSearchCity';
+// import PopupSearchCity from './PopupSearchCity';
+
+const PopupSearchCity = lazy(() => import('./PopupSearchCity'));
 
 const SearchCity = () => {
   const [searchText, setSearchText] = useState('');

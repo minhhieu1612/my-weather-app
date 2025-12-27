@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { lazy, useEffect } from 'react';
 import { createRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setqueryLocationParams } from 'src/store/queryLocation';
@@ -11,9 +11,10 @@ import {
 } from 'src/utils/config';
 import { LocationType } from 'src/types';
 import { pushSearchHistory } from 'src/store/searchHistory';
-import SearchForm from './SearchForm';
-import LocationList from './LocationList';
 import { getUniqueId } from 'src/utils/common';
+
+const SearchForm = lazy(() => import('./SearchForm'));
+const LocationList = lazy(() => import('./LocationList'));
 
 type PopupSearchCityPropsType = {
   searchText: string;

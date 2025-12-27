@@ -38,30 +38,31 @@ const ForecastList = () => {
         ? groupDataForecastByDay(
             (dataFiveDaysForecast as FiveDaysForecastResponseType).list
           ).map(([day, lisItem]) => (
-            <div key={day}>
-              <h4 className="forecast-day">{day}</h4>
+            <div className="forecast-list" key={day}>
+              <h4 className="forecast-list__day">{day}</h4>
               <hr />
-              <div className="row forecast-list">
+              <div className="row h-mt-2">
                 {(lisItem as any[]).map((item) => (
                   <div key={item.dt_txt} className="col">
-                    <div className="forecast-list-item">
-                      <div className="time">
+                    <div className="forecast-list__card">
+                      <div className="forecast-list__time">
                         {getFormattedLocaleTime(item.dt_txt)}
                       </div>
                       <img
+                        className="forecast-list__weather-icon"
                         src={`https://openweathermap.org/img/w/${item.weather[0]?.icon}.png`}
                         alt=""
                       />
-                      <div className="description">
+                      <div className="forecast-list__description is-hidden-mobile-only">
                         {item.weather[0].description}
                       </div>
-                      <div className="temperature">
+                      <div className="forecast-list__temperature">
                         {item.main.temp_max}° / {item.main.temp_min}°
                       </div>
-                      <div className="description">
+                      <div className="forecast-list__description is-visible-mobile-only">
                         {item.weather[0].description}
                       </div>
-                      <div className="humidity">
+                      <div className="forecast-list__humidity">
                         Humidity: {item.main.humidity}%
                       </div>
                     </div>

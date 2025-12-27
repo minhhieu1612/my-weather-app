@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectQueryLocation } from 'src/store/queryLocation';
 import './index.scss';
@@ -11,6 +11,7 @@ import { getFormattedLocaleDate } from 'src/utils/formatDateTime';
 
 const CurrentWeather = () => {
   const { lat, lon } = useSelector(selectQueryLocation);
+  const exampleRef = useRef<HTMLDivElement>();
   const [dataCurrentWeather, setDataCurrentWeather] = useState<
     DataCurrentWeatherType | undefined
   >();
@@ -19,13 +20,15 @@ const CurrentWeather = () => {
   useEffect(() => {
     (async () => {
       startLoading();
-
+      
       const response = await weatherService.getCurrentWeather({
         lattitude: lat,
         longtitude: lon,
       });
-
+      
       endLoading();
+      
+      exampleRef.current?.getBoundingClientRect();
 
       if (response.success) {
         setDataCurrentWeather(
@@ -36,7 +39,7 @@ const CurrentWeather = () => {
   }, [lat, lon]);
 
   return (
-    <div className="current-weather">
+    <div className="current-weather" ref={(ref) => exampleRef.current = ref as HTMLDivElement}>
       {Loader}
       {dataCurrentWeather !== undefined ? (
         <>

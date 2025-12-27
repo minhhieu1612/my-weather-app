@@ -10,27 +10,6 @@ h1 {
   color: $primary-color;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 10px;
-
-  @include media-screen($sm, $xs) {
-    max-width: map.get($container-max-widths, 'sm');
-  }
-
-  @include media-screen($md, $sm) {
-    max-width: map.get($container-max-widths, 'md');
-  }
-
-  @include media-screen($lg, $md) {
-    max-width: map.get($container-max-widths, 'lg');
-  }
-
-  @include media-screen-up($lg) {
-    max-width: map.get($container-max-widths, 'xl');
-  }
-}
-
 .row {
   display: flex;
   flex-wrap: wrap;

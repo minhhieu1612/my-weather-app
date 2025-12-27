@@ -22,6 +22,8 @@ export default function SearchHistory({
   const handleDelete =
     (indexItem: number) =>
     (_e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+
+      console.log('delete search');
       dispatch(deleteSearchHistory(indexItem));
     };
 
